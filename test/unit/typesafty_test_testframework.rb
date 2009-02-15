@@ -46,14 +46,16 @@ class TestLibraryFileName < Test::Unit::TestCase
 
   def test_validation_test_rig
     validation_errors= {
-      :oneTYPE => [{:name =>:oneTYPE, :error => :type} ]}
-      :oneTYPECARDINALITY => 
-      [ {:name =>  :}
-        ]
+      :oneOK => [],
+      :oneTYPE => [
+        {:name =>:oneTYPE, :error => :type} 
+      ],
+      :oneTYPECARDINALITY => [ 
+        {:name => :oneTYPECARDINALITY, :error =>  :cardinality},
+        {:name => :oneTYPECARDINALITY, :error =>  :type}
+      ]
     }
-    reverse_assert
     validate_errors validation_errors 
-    unreverse_assert
   end
 
   def test_validation_methods
@@ -70,7 +72,7 @@ class TestLibraryFileName < Test::Unit::TestCase
     valid.call(  [1,2,3], :threeintOK, Integer, {:multiplicity => 3..100})
     valid.call(  (1..10000).to_a, :threeintOK, Integer, {:multiplicity => 0..STAR})
 
-    valid.call(  [1], :oneinttwostringsTYPECARDINALITY, String, {:multiplicity => 0..2})
+    valid.call(  [1], :oneinttwostringsTYPECARDINALITY, String, {:multiplicity => 2..2})
     valid.call(  [], :emptyoneintCARDINALITY, Integer, {:multiplicity => 1..1})
 
     valid.call(  [1], :oneint2stringTYPECARDINALITY, String, {:multiplicity => 2..2})
