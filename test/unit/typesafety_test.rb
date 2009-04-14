@@ -99,7 +99,7 @@ class TestTypesafety < Test::Unit::TestCase
 
 
   def test_assoc
-    association [:pack, Pack, {:cardinality=>1}], [:cards, Card, {:cardinality=>52}]
+    association :pack_of_cards, [:pack, Pack, {:multiplicity=>1}], [:cards, Card, {:multiplicity=>52}]
     cards=[]
     (1..52).each{ cards<< Card.new}
     pack= [Pack.new]  
@@ -110,40 +110,43 @@ class TestTypesafety < Test::Unit::TestCase
     assert_equal(pack, cards[0].pack)
     assert_equal(cards, pack[0].cards)
     cards.shift
+    pack[0].cards= cards
     errors= pack[0].__complete
-    assert( errors, "only 51 cards now - not allowed") 
-#    pack.each{|p| p.__complete}
-#    cards.each{|p| p.__complete}
-#    cards.unshift Card.new
-#    #link :pack, pack, :cards, cards
-#    assert_equal(pack, cards[0].pack)
-#    assert_equal(cards, pack[0].cards)
+    assert( errors.find {|e| e[:error]== :cardinality}, "only 51 cards now - not allowed\n"+ errors.report_typesafety_errors) 
+    pack.each{|p| p.__complete}
+    cards.each{|p| p.__complete}
+    cards.unshift Card.new
+    link :pack_of_cards, :pack, pack, :cards, cards
+    assert_equal(pack, cards[0].pack)
+    assert_equal(cards, pack[0].cards)
 
-#    association [nil, Whole], [:wheels, Part, 0..20], kind=:composition
-#    car= [Whole.new]
-#    wheels= (1..4).inject([]){|a,j|a<<Part.new}
-#    associate nil, car, :wheels, wheels
-#    assert_equal(4, car[0].wheels.length)
-#
-#    # demontrate overloading class and type
-#    assert_not_equal(::Class, Class)
-#    association [:class, Class, 1..STAR], [:type, Typed, 0..STAR], :association
-#    assert( Class.public_method_defined?( :type) )
-#    assert( Typed.public_method_defined?( :class) )
-#    clas= multiples 6, Class
-#    type= multiples 21, Typed
-#    clas[0].type= type
-#    type[0].class= clas
-#    associate :class, clas[1..3], :type, type[1..8]
-#    associate :class, clas[4..5], :type, type[9..20]
-#    assert_equal(type[1..8], clas[1].type)
-#    clas.each{|t|puts t}
-#
-#    [[1..3,1..8],[4..5,9..20]].each do |group|
-#      group[0].each{ |i| assert_equal(clas[i].type, type[group[1]])}
-#      group[1].each{ |i| assert_equal(clas[group[0]], type[i].class)}
-#    end
-#    assert_not_equal(clas[1..3], type[9].class)
+    #this association is unidirectional
+    association :car, [nil, Whole], [:wheels, Part, {:multiplicity => 0..20}], kind=:composition
+    car= [Whole.new]
+    wheels= multiples 4, Part
+    link :car, nil, car, :wheels, wheels
+    assert_equal(4, car[0].wheels.length)
+    assert_equal(0, wheels[0].methods.select{|m| m=~/car/}.length, "wheel doesn't know what car its on")
+
+    # demontrate overloading class and type
+    assert_not_equal(::Class, Class)
+    association :superclass, [:class, Class, {:multiplicity =>1..STAR}], [:type, Typed, {:multiplicity =>1..STAR}], :association
+    assert( Class.public_method_defined?( :type) )
+    assert( Typed.public_method_defined?( :class) )
+    clas= multiples 6, Class
+    type= multiples 21, Typed
+    clas[0].type= type
+    type[0].class= clas
+    link :superclass, :class, clas[1..3], :type, type[1..8]
+    link :superclass, :class, clas[4..5], :type, type[9..20]
+    assert_equal(type[1..8], clas[1].type)
+    clas.each{|t|puts t}
+
+    [[1..3,1..8],[4..5,9..20]].each do |group|
+      group[0].each{ |i| assert_equal(clas[i].type, type[group[1]])}
+      group[1].each{ |i| assert_equal(clas[group[0]], type[i].class)}
+    end
+    assert_not_equal(clas[1..3], type[9].class)
   end
 
 end

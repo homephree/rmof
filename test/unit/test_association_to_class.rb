@@ -1,26 +1,34 @@
 require "test/unit"
 
 require 'typesafety'
-
-module M1
-  class Cz
-    Typesafety.typesafe Cz
-  end
-  Typesafety.association [:class, Cz, 3..5], [:other, Cz, 1..1]
-end
+require 'typesafety_testcases'
 
 class TestAgain < Test::Unit::TestCase
+  include TestClasses
   def test_class_named_attribute
-    
-    c1= M1::Cz.new
-    c2= M1::Cz.new
-    
-    Typesafety.associate :class, [c1], :other, [c2]
-    puts c1.class
-    puts c2.class
-    assert_equal([c1], c2.class)
-    
-    assert_raise(Typesafety::SyntaxException) {  c1.__validate}
-    Typesafety.associate :class, [c1], :other, [c2]
+
+
+    left= [Left.new]
+    right= [Right.new]
+    #cardinality of association on C1 is wrong, but c2 is ok
+    Typesafety.link :_2_left_to_1_right, :left, left, :right, right
+
+    validation_errors= left[0].__complete
+    assert_equal( [], validation_errors, validation_errors.report_typesafety_errors)
+
+    validation_errors= right[0].__complete
+    assert( validation_errors.find{|e| e[:error]== :cardinality}, validation_errors.report_typesafety_errors)
+
+    left= multiples 2, Left
+    Typesafety.link :_2_5_left_to_1_right, :left, left, :right, right
+    validation_errors= left[0].__complete
+    assert_equal( [], validation_errors, validation_errors.report_typesafety_errors)
+
+    validation_errors= right[0].__complete
+    assert_equal( [], validation_errors, validation_errors.report_typesafety_errors)
+
+    assert_equal(left, right[0].left)  
+    left.each{|theleft| assert_equal(right, theleft.right)}
   end
+  
 end
