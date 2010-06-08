@@ -15,6 +15,7 @@ class Class
   #We don't expect this to be cast
   def initialize
     RESULTS[:Class_initialize_scope]= self
+    super initialize
   end
   #This will become a class scope method of any class
   def class_method item
@@ -54,7 +55,7 @@ end
 
 class TestMetaProgramming < Test::Unit::TestCase
   def test_class_methods
-    assert_nil(RESULTS[ :Class_initialize_scope], "class's initialize is not called on speciication of a class instance")
+    assert_nil(RESULTS[ :Class_initialize_scope], "class's initialize is not called on specification of a class instance")
     assert_equal( Class, RESULTS[:Class_eval_scope].class, "Class' scope is Class")
     assert_equal( "Meta", RESULTS[:Class_method_self].to_s, "The class method belongs to the class instance")
     assert_equal( Class.eigenclass, RESULTS[:Class_eigenclass_eval_scope], "Class' eigenclass has scope of Class::Class")

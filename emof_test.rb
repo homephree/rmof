@@ -14,9 +14,7 @@ class TestEmof < Test::Unit::TestCase
 
   def test_defaults
     prop=Property.new
-    assert( nil==prop.isReadOnly, "incomplete new objects should have nil defaults")
-    prop.__complete
-    assert( !prop.isReadOnly[0].native, "prop defaults to empty array")
+    assert( !prop.isReadOnly[0].native, "prop defaults to empty set")
   end
 
   # spot check the basic classes pkg
@@ -80,7 +78,9 @@ class TestEmof < Test::Unit::TestCase
     assert_nothing_raised(Exception) { print.raisedException= multiples 5, Type }
     assert_equal(5, print.raisedException.length)
     assert_nothing_raised(Exception) { (0..49).each{ |i|print_queues[i].opposite= [print_queues[i+50]]} }
-    assert_raise(TypeException, "can't raise operations!") { print.raisedException= [Operation.new] }
+    print.raisedException= [Operation.new]
+    errs= print.__complete 
+    assert( errs.select{|e|e[:error]== :type}.length ==1, "can't raise operations!")
   end
   
   def _test_types

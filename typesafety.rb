@@ -35,7 +35,10 @@ module Typesafety
   DEFAULT_RETURN_PARAMETER= [:default_return_parameter,Object, NO_RETURN_CONDITIONS]
   NO_ERRORS= []
   ASSOCIATION_TYPES={:association=>true, :aggregation=>true, :composition=>true}
-
+  PARAM_NAME= 0
+  PARAM_TYPE= 1
+  PARAM_CONDITIONS= 2
+  
   module_function
 
   # make the class typesafe by offering 'attribute' and 'operation' methods in its eigenclass
@@ -59,48 +62,37 @@ module Typesafety
         setter= "#{name}=".to_sym
         completion= "__complete_#{name}".to_sym
         define_method( getter) do
-          instance_variable_get at
+          if instance_variable_defined? at then instance_variable_get at
+          else conditions[:default]
+          end
         end
         define_method( setter) do |val|
           instance_variable_set at, val
         end
         define_method( completion) do
-          # I check typesafety and apply defaults
-          # result is list of one or more errors or nil
-          val= instance_variable_get at
-          defaulted_val= Typesafety.default( val, name, type, conditions)
-          if val!=defaulted_val  then instance_variable_set at, defaulted_val
-          end
-          Typesafety.validate( defaulted_val, name, type, conditions)
+          Typesafety.validate( self.send(getter), name, type, conditions)
         end
       end # attribute
 
       # Only support a single return output parameter (but 0..n multiplicity), as required by EMOF
       # Each parameter is the form [name:Symbol, type:Class, {conditions:Hash}]
       def operation name, *parameters, &method
-        returns= DEFAULT_RETURN_PARAMETER
-        passedparams=[]
-        # clean up param spec - find returns directives, expand multiplicity and default conditions
-        parameters.each do |p|
-          p[2]= p[2] || DEFAULT_PARAMETER_CONDITIONS
-          Typesafety.complete_conditions p[2], DEFAULT_PARAMETER_CONDITIONS
-          if( p[2][:return]) then 
-            if returns[0] != :default_return_parameter then raise SyntaxException, "only one return param"
-            end
-            returns= p
-          else passedparams<< p
-          end
-        end
-        # this is the method itself
+        parameters.each {|p| 
+          p[PARAM_CONDITIONS]= Typesafety.complete_conditions( p[PARAM_CONDITIONS], DEFAULT_PARAMETER_CONDITIONS)
+        }
+        returnparams, passedparams= parameters.partition{|p| p[PARAM_CONDITIONS][:return] }
+        raise SyntaxException, "only one return param" if returnparams.length >1 
+        returnparams= [DEFAULT_RETURN_PARAMETER] if returnparams.length==0
         validation_errors= []
-        adorn_error= lambda{|err|err[:owner]=self; err[:operation]=name; err[:parameters]=parameters;err}
+        adorn_error= lambda{|err|err[:owner]=self; err[:operation]=name; err[:parameters]=parameters; err}
+        # this is the method itself
         define_method( name) do |*args|
           unless args.length==passedparams.length then 
             raise TypesafetyException.new([adorn_error[{:error=>:number_of_parameters}]])
           end
           args.each_with_index do |v, i|
-            v= Typesafety.default( v, *passedparams[i])
-            errors= Typesafety.validate v, *passedparams[i]
+            v= v|passedparams[i][PARAM_CONDITIONS][:default]
+            errors= Typesafety.validate( v, *passedparams[i])
             errors.each{|e| adorn_error[e]}
             validation_errors.concat errors
           end
@@ -111,7 +103,7 @@ module Typesafety
           rescue => ex
             raise TypesafetyException.new( [adorn_error[{:error=>:exception, :exception=>ex}]])
           end
-          validation_errors= Typesafety.validate( result, *returns) 
+          validation_errors= Typesafety.validate( result, *returnparams[0]) 
           validation_errors.each{|e| adorn_error[e];}
           unless validation_errors.empty? then 
             raise TypesafetyException.new( validation_errors)
@@ -137,23 +129,10 @@ module Typesafety
     completors= metaobject.methods.select{|m| m=~/__complete_/}
     completors.each{ |completor| errors.concat( metaobject.send(completor))}
     errors.each{ |e| 
-      #e[:owner]=metaobject; 
-      e[:association]= :attribute}
+      e[:owner]=metaobject; 
+      e[:association]= :attribute
+    }
     errors
-  end
-
-  # check the value and return the value or it's defaulted value.
-  # if the value is nil then the return is the default, or an empty array if the conditions have no such default
-  # types are not validated however.
-  # default is determined from conditions[:default]
-  def default val, name, type, conditions
-    if val== nil and conditions[:default]
-      conditions[:default]
-    elsif val== nil
-      []
-    else
-      val
-    end
   end
 
   # validate the value against the conditions
@@ -217,13 +196,13 @@ module Typesafety
   # TODO consider syntax check on src, trg etc
   # TODO consider uniqueness on association_name
   def association association_name, src, trg, kind= :association, link_conditions=DEFAULT_ASSOCIATION_END_CONDITIONS
-    src[2]= complete_conditions src[2], DEFAULT_ASSOCIATION_CONDITIONS
-    trg[2]= complete_conditions trg[2], DEFAULT_ASSOCIATION_CONDITIONS
+    src[PARAM_CONDITIONS]= complete_conditions src[PARAM_CONDITIONS], DEFAULT_ASSOCIATION_CONDITIONS
+    trg[PARAM_CONDITIONS]= complete_conditions trg[PARAM_CONDITIONS], DEFAULT_ASSOCIATION_CONDITIONS
     # All emof assocs have defined multiplicity
-    unless src[0].nil? then
-      trg[1].send( :attribute, *src)
+    unless src[PARAM_NAME].nil? then
+      trg[PARAM_TYPE].send( :attribute, *src)
     end
-    src[1].send( :attribute, *trg)
+    src[PARAM_TYPE].send( :attribute, *trg)
   end
 
   # associate each source with each trg
@@ -236,7 +215,7 @@ module Typesafety
   # [src] non optional reference to src object being associated with target
   # [trg_end] non optional symbol identifying target end, also owned end attribute of src reference to target
   # [trg] non optional reference to target object being associated with src
-  
+
   def link association_name, src_end, src, trg_end, trg
     trg_setter= "#{trg_end}=".to_sym
     if src_end
@@ -267,14 +246,6 @@ module Typesafety
     throw "Multiplicity must be Range or int" unless multiplicity.kind_of? Range
     return multiplicity
   end
-
-  CONTEXT_INDEX_ARG=0
-  CONTEXT_INDEX_NAME=1
-  CONTEXT_INDEX_TYPE=2
-  CONTEXT_INDEX_CONDITIONS=3
-  CONTEXT_INDEX_EXCEPTION=4
-  CONTEXT_INDEX_MAX=4
-
 
   def multiples num, type, *init
     (0...num).inject([]){ |p,i| p[i]= type.new( *init); p}
