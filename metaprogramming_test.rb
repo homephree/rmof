@@ -73,9 +73,9 @@ class TestMetaProgramming < Test::Unit::TestCase
     assert( !Meta.items.include?( "b"), "Only the specific class instance should have the items for that class")
     m= Meta.new
     m.m= 1
+    assert_equal(1, RESULTS["m_set"])
     assert_equal(1, m.m)
     assert_equal(1, RESULTS["m_get"])
-    assert_equal(1, RESULTS["m_set"])
     b= Beta.new
     b.b= 2
     b.m= 3

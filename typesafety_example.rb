@@ -1,4 +1,5 @@
 require 'typesafety'
+require "test/unit"
 
 #cheat a little by treating string and int as typesafe
 Typesafety.typesafe String

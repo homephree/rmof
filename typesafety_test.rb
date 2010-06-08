@@ -1,6 +1,6 @@
 
 require  'typesafety'
-require  'typesafety_testcases'
+require  'typesafety_example'
 
 
 class TestTypesafety < Test::Unit::TestCase
@@ -28,8 +28,8 @@ class TestTypesafety < Test::Unit::TestCase
   def test_cardinality
     vc= VariousCards.new
     errors= vc.__complete
-    assert_equal(4, errors.select{|e|e[:error]==:cardinality}.length, "Cards - default - four need setting")
-    assert_equal(nil, errors.find{|e|e[:error]!=:cardinality}, "no other errors")
+    assert_equal(4, errors.select{|e|e[:error]== :cardinality}.length, "Cards - default - four need setting")
+    assert_equal(nil, errors.find{|e|e[:error]!= :cardinality}, "no other errors")
     vc.default=  multiples 1, String #the default card is '1' but default value is '[]'
     vc.one=  multiples 1, String
     vc.twoorthree= multiples 2, String

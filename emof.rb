@@ -20,7 +20,7 @@ module EMOF
   # Ruby-EMOF Typesafe bootstrap
   include Typesafety
   def self.association *args
-    Typesafety.association *args
+    Typesafety.association( *args)
   end
   class Element
     Typesafety.typesafe self
@@ -85,7 +85,7 @@ module EMOF
   association nil, [:class, Class, {:multiplicity => 0..1}], [:ownedAttribute, Property, {:multiplicity => 0..STAR}], :composition, {:ordered=>true, :directed=>true}
   association nil, [:class, Class, {:multiplicity => 0..1}], [:ownedOperation, Operation, {:multiplicity => 0..STAR}], :composition, {:ordered=>true, :directed=>true}
   association nil, [:operation, Operation, {:multiplicity => 1..1}], [:ownedParameter, Parameter, {:multiplicity =>0..STAR}], :composition, {:ordered=>true, :directed=>true}
-  association nil, [:operation, Operation, {:multiplicity => 0..STAR}], [:raisedException, Type, {:multiplicity => 0..STAR}], :associate, {:ordered=>true, :directed=>true}
+  association nil, [:operation, Operation, {:multiplicity => 0..STAR}], [:raisedException, Type, {:multiplicity => 0..STAR}], :associate, {:ordered=>true, :directed=>true} #todo associate?
 
   # EMOF Types
   class Element
@@ -99,7 +99,7 @@ module EMOF
       [nil]
     end
     #TODO model Boolean
-    operation :equals, [:element, Element], [:element, Boolean, {:multiplicity =>1..1, :return=>true}] do
+    operation :equals, [:element, Element], [:equals, Boolean, {:multiplicity =>1..1, :return=>true}] do
       #TODO implement equals
       [false]
     end

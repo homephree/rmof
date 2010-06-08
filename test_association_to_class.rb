@@ -1,7 +1,7 @@
 require "test/unit"
 
 require 'typesafety'
-require 'typesafety_testcases'
+require 'typesafety_example'
 
 class TestAgain < Test::Unit::TestCase
   include TestClasses

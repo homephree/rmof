@@ -14,7 +14,9 @@ class TestEmof < Test::Unit::TestCase
 
   def test_defaults
     prop=Property.new
-    assert( !prop.isReadOnly[0].native, "prop defaults to unique")
+    assert( nil==prop.isReadOnly, "incomplete new objects should have nil defaults")
+    prop.__complete
+    assert( !prop.isReadOnly[0].native, "prop defaults to empty array")
   end
 
   # spot check the basic classes pkg
@@ -27,27 +29,34 @@ class TestEmof < Test::Unit::TestCase
     deriv.superClass= [base1, base2]
     assert( deriv.superClass.size==2, "Class can have multiple superclasses.")
     # of course superClass can be any type (but this will fail when I implement type checking)
-    assert_raise(SyntaxException) { deriv.superClass= 4}
+    errs= deriv.__complete
+    deriv.superClass= 4
+    assert( errs.select{|e|e[:error]== :type}.length, "can't use an integer as a superclass");
     #
     prop1, prop2, *props= multiples 10, Property
-    associate :property, [prop1], :opposite, [prop2]
-    assert_raise( RangeException, "prop 0..1") { associate :property, [prop1], :opposite, props }
-    # super
+    link nil, :property, [prop1], :opposite, [prop2]
+    link nil, :property, [prop2], :opposite, [prop1]
+    prop1.isID=[FALSE];
+    prop1.default=[String.new]
+    errs= prop1.__complete
+    assert( 0==errs.length, errs.inspect);
+        # super
     class1, *more_classed= multiples 10, Class
-    associate nil, [class1], :superClass, more_classed
+    link nil, nil, [class1], :superClass, more_classed
     assert_equal( more_classed, class1.superClass)
-    associate nil, [class1], :superClass, []
+    errs= [];
+    more_classed.each{|c|errs.concat c.__complete}
+    #assert( errs.select{|e|e[:error]== :cardinality}.length ==more_classed.length, "superClass has no reciprocal attribute")
+    
+    link nil, nil, [class1], :superClass, []
     assert_equal( [], class1.superClass, "no supers")
-    assert_raise( SyntaxException, "superClass has no reciprocal attribute") do
-      associate :class, [class1], :superClass, more_classed
-    end
     #
-    associate :class, [class1], :ownedAttribute, props
+    link nil, :class, [class1], :ownedAttribute, props
     #
     ops= multiples 10, Operation
-    associate :class, [class1], :ownedOperation, ops
+    link nil, :class, [class1], :ownedOperation, ops
     assert_equal(ops, class1.ownedOperation)
-    associate :class, [], :ownedOperation, ops
+    link nil, :class, [], :ownedOperation, ops
     assert_equal( [], ops.inject([]){|a,o| a|o.class})
     # this will 'break; the relationship with class, which should be null but isn't
     # because the owned-end relationships 

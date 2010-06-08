@@ -1,6 +1,8 @@
 require "test/unit"
 require "typesafety"
 
+# test the error framework
+
 class TestLibraryFileName < Test::Unit::TestCase
   include Typesafety
 

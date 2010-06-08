@@ -7,7 +7,7 @@ class Meta
   def []=(i,v); @ar[i]=v; end
 end
 
-class TestCase < Test::Unit::TestCase
+class MetaTestCase < Test::Unit::TestCase
   def test_case_name
     m= Meta.new
     m.ar=[1,2]

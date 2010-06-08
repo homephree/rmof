@@ -136,7 +136,9 @@ module Typesafety
     errors= []
     completors= metaobject.methods.select{|m| m=~/__complete_/}
     completors.each{ |completor| errors.concat( metaobject.send(completor))}
-    errors.each{ |e| e[:owner]=metaobject; e[:association]= :attribute}
+    errors.each{ |e| 
+      #e[:owner]=metaobject; 
+      e[:association]= :attribute}
     errors
   end
 
@@ -228,6 +230,13 @@ module Typesafety
   # We use an owned association, so there needs to be an attribute on src for target, and
   # optionally vice-versa
   # todo - register validation required on old ends
+  # -- params
+  # [association_name] optional (not currently used)
+  # [src_end] optional symbol identifying source end, also owned end attribute of target referring to src
+  # [src] non optional reference to src object being associated with target
+  # [trg_end] non optional symbol identifying target end, also owned end attribute of src reference to target
+  # [trg] non optional reference to target object being associated with src
+  
   def link association_name, src_end, src, trg_end, trg
     trg_setter= "#{trg_end}=".to_sym
     if src_end
