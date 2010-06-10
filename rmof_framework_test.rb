@@ -1,10 +1,10 @@
 require "test/unit"
-require "typesafety"
+require "rmof"
 
 # test the error framework
 
 class TestLibraryFileName < Test::Unit::TestCase
-  include Typesafety
+  include RMOF
 
   def setup
   end
@@ -37,7 +37,7 @@ class TestLibraryFileName < Test::Unit::TestCase
             have_this_error_with_name= errs.select{ |er| er[:error]==ert  }
             assert( have_this_error_with_name.length>0, 
             "should have an error of '#{ert}' in #{errs.inspect}\n" \
-            "errs:\n#{errs.report_typesafety_errors}")
+            "errs:\n#{errs.report_rmof_errors}")
           end
         end
       end

@@ -1,7 +1,7 @@
 
-require 'typesafety'
+require 'rmof'
 
-require 'typesafety_example'
+require 'rmof_example'
 
 include TestClasses
 require 'pp'
@@ -12,6 +12,6 @@ begin
  omc.combine([""]) #will cause an exception
  
  puts "OK"
-rescue TypesafetyException => ex
-  puts ex.validation_errors.report_typesafety_errors
+rescue RMOFException => ex
+  puts ex.validation_errors.report_rmof_errors
 end

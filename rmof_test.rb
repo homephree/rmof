@@ -1,12 +1,12 @@
 
-require  'typesafety'
-require  'typesafety_example'
+require  'rmof'
+require  'rmof_example'
 
 
-class TestTypesafety < Test::Unit::TestCase
+class TestRMOF < Test::Unit::TestCase
 
-  include Typesafety
-  STAR= Typesafety::STAR
+  include RMOF
+  STAR= RMOF::STAR
 
   include TestClasses
   
@@ -25,52 +25,84 @@ class TestTypesafety < Test::Unit::TestCase
     assert_equal(["a string"],  nom.astring)
   end
 
-  def test_cardinality
-    vc= VariousCards.new
+  private 
+  def test_vc vc
     errors= vc.__complete
-    assert_equal(4, errors.select{|e|e[:error]== :cardinality}.length, "Cards - default - four need setting")
+    wrongdefcards= [:fivetostar,:twoorthree,:one]
+    gooddefcards= [:ohone,:gooddefcard,:star]
+    allatts= wrongdefcards + gooddefcards # I need to cater for multiply derived types - see deriv tests
+    oneofours=lambda{|e|allatts.include?(e)}
+    assert_equal(wrongdefcards.length, errors.select{|e|e[:error]== :cardinality and wrongdefcards.include?(e[:name])}.length, 
+    "Cards - default - fivetostart invalid default - #{errors.inspect}")
+    assert(errors.find{|e|e[:error]== :cardinality and e[:name]=:fivetostar}, "Cards - default - fivetostart invalid default - #{errors.inspect}")
     assert_equal(nil, errors.find{|e|e[:error]!= :cardinality}, "no other errors")
-    vc.default=  multiples 1, String #the default card is '1' but default value is '[]'
-    vc.one=  multiples 1, String
-    vc.twoorthree= multiples 2, String
-    vc.fivetostar= multiples 5, String
+    vc.one=  multiples 1, String, "1"
+    vc.twoorthree= multiples 2, String, "23"
+    vc.fivetostar= multiples 6, String, "5*"
     errors= vc.__complete
-    assert_equal(NO_ERRORS, errors, "set the four")
+    #all ok
+    assert_equal(NO_ERRORS, errors.select{|e|oneofours[e[:name]]}, "set the bad cards")
+    #check values
+    assert( ["one","two"] == vc.gooddefaultcard )
+    assert( ["1"]== vc.one, vc.one.inspect)
+    assert( ["23","23"]== vc.twoorthree, vc.twoorthree.inspect)
+    assert( ["5*","5*","5*","5*","5*","5*"]== vc.fivetostar, vc.fivetostar.inspect)
     #too big
     vc.twoorthree= multiples 4, String
     #too small
     vc.fivetostar= multiples 4, String
     errors= vc.__complete
-    assert_equal(2, errors.select{|e|e[:error]==:cardinality}.length, "Cards: two out of range")
-    assert_equal(nil, errors.find{|e|e[:error]!=:cardinality}, "no other errors")   
+    assert_equal(2, errors.select{|e|e[:error]== :cardinality}.length, "Cards: two out of range #{errors.inspect}")
+    assert_equal(nil, errors.find{|e|e[:error]!= :cardinality and oneofours[e[:name]]}, "no other errors")
+    # put it back to a valid state
+    vc.twoorthree= multiples 2, String, "23"
+    vc.fivetostar= multiples 6, String, "5*"
+    errors= vc.__complete
+    assert_equal(NO_ERRORS, errors.select{|e|oneofours[e[:name]]}, "reset the bad cards")
+  end 
+  public
+  
+  def test_cardinality
+    vc= VariousCards.new
+    test_vc vc
   end
 
-  def test_types
-    vt= VariousTypes.new
+  private
+  def test_vt vt
+    allatts= [ :astring,:anint,:custom,:twostrings]
+    oneofours=lambda{|e|allatts.include?(e)}
     vt.astring= multiples 1, String
     vt.anint= [1]
     vt.twostrings= multiples 2, String
     errors= vt.__complete
-    assert_equal(NO_ERRORS, errors)
+    assert_equal(NO_ERRORS, errors.select{|e|oneofours[e[:error]]})
     vt.twostrings=[]
     errors= vt.__complete
-    assert_equal(1, errors.select{|e|e[:error]==:cardinality}.length, "one card\n"+errors.inspect)
-    assert_equal(0, errors.select{|e|e[:error]==:type}.length, "no typesafety\n"+errors.inspect)
+    assert_equal(1, errors.select{|e|e[:error]==:cardinality and oneofours[e[:name]]}.length, "one card\n"+errors.inspect)
+    assert_equal(0, errors.select{|e|e[:error]==:type and oneofours[e[:name]]}.length, "no rmof\n"+errors.inspect)
     vt.twostrings=[1]
     errors= vt.__complete
-    assert_equal(1, errors.select{|e|e[:error]==:cardinality}.length, "one card\n"+errors.inspect)
-    assert_equal(1, errors.select{|e|e[:error]==:type}.length, "one type\n"+errors.inspect)
+    assert_equal(1, errors.select{|e|e[:error]==:cardinality and oneofours[e[:name]]}.length, "one card\n"+errors.inspect)
+    assert_equal(1, errors.select{|e|e[:error]==:type and oneofours[e[:name]]}.length, "one type\n"+errors.inspect)
+    #fix it
+    vt.twostrings=["1","2"]
+    errors= vt.__complete
+    assert_equal(NO_ERRORS, errors.select{|e|oneofours[e[:error]]})    
+  end
+  public
+  
+  def test_types
+    vt= VariousTypes.new
+    test_vt vt
   end
 
-  Typesafety.typesafe ::String
-  def test_operations
-    omc= OpsMetaclass.new
-    
+  private
+  def test_op omc  
     assert_equal( ["onetwo"], omc.combine(["one"],["two"]))
     # wrong number of params
     begin
       omc.combine([""])
-    rescue TypesafetyException=>ex
+    rescue RMOFException=>ex
     end
     assert ex, "must have ex"
     assert_equal 1, ex.validation_errors.size, "one err"
@@ -78,21 +110,30 @@ class TestTypesafety < Test::Unit::TestCase
     # returns when it shouldn't
     begin
       omc.too_many_results([""])
-    rescue TypesafetyException=>ex
+    rescue RMOFException=>ex
     end
     assert ex, "must have ex"
     assert_equal 1, ex.validation_errors.size, "one err"
     assert_equal 1,  ex.validation_errors.select{|e|e[:error]==:cardinality}.size, "one num params err:"+ex.validation_errors.inspect
     assert_nothing_raised(Exception){ omc.none}
   end
+  public
+  
+  RMOF.element ::String
+  def test_operations
+    omc = OpsMetaclass.new
+    test_op omc
+  end
 
 
   def test_deriv
     # make sure derivation works (self scope is correct in invocations to attribute and operation)
     dmc= DerivMetaClass.new
-    assert( dmc.methods.include?( "astring"))
-    assert( dmc.methods.include?( "anint"))
-    assert( dmc.methods.include?( "twostrings"))
+    test_vc dmc
+    test_vt dmc
+    test_op dmc
+    errors = dmc.__complete
+    assert_equal(NO_ERRORS, errors, "no errors in dmc after all tests")
   end
 
 
@@ -110,7 +151,7 @@ class TestTypesafety < Test::Unit::TestCase
     cards.shift
     pack[0].cards= cards
     errors= pack[0].__complete
-    assert( errors.find {|e| e[:error]== :cardinality}, "only 51 cards now - not allowed\n"+ errors.report_typesafety_errors) 
+    assert( errors.find {|e| e[:error]== :cardinality}, "only 51 cards now - not allowed\n"+ errors.report_rmof_errors) 
     pack.each{|p| p.__complete}
     cards.each{|p| p.__complete}
     cards.unshift Card.new

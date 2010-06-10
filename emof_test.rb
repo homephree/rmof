@@ -1,11 +1,11 @@
 require "test/unit"
 
 require 'emof'
-require 'typesafety'
+require 'rmof'
 
 class TestEmof < Test::Unit::TestCase
-  include EMOF
-  include Typesafety
+  include UML::Core
+  include RMOF
 
   def test_meta_semantics
     # just to clarify the point. Many languages couldn't cope with substituting 'Class' in the default namespace!
