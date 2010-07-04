@@ -9,7 +9,7 @@ module TestClasses
   include RMOF
   STAR= RMOF::STAR
 
-  class TypesafeBase < Metaclass
+  class TypesafeBase < Element
   end
 
   class A < TypesafeBase

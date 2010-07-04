@@ -16,6 +16,10 @@ class TestRMOF < Test::Unit::TestCase
     validation_errors= validate([1], :anInteger, Integer, DEFAULT_ATTRIBUTE_CONDITIONS)
     assert_equal(NO_ERRORS, validation_errors)
   end
+  
+  def test_attributes
+#    assert( VariousCards.attributes[:gooddefaultcard])
+  end
 
   def test_basic_validations
     nom= OneAttributeMeta.new

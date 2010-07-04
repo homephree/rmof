@@ -1,4 +1,9 @@
-# TypeSafety module 
+# RMOF Ruby Meta Object Facility
+# A cut down implementation of CMOF to add typesafety and multiple derivation semantics to ruby.
+# This allows us to build a CMOF implementation in ruby classes, which in turn will allow us to 
+# build a UML implementation and any other metamodel. 
+# Also needed is an instance model.
+# 
 # Kevin Humphries - Friday, 17 October 2008 17:10
 # Objective: add element attributes and methods to ruby classes to allow support
 # of element metamodels.
@@ -12,7 +17,12 @@
 # TODO instrument array such that it passes through methods to first instance if only one.
 # Thursday, 10 June 2010 09:19
 # Recent versions add mutliple inheritence via 'generelization' method
-# I have equated 'NONE' with null with empty set. This may cause problems but reduces checking.
+# Null - I need to support null for cases where arrays are partially filled. A single element [1..1] property
+# which is unset is [ nil] not [] 
+# The package needs to meet the requirements of EMOF (not CMOF). Therefore multiple inheritence is not 
+# strictly necessary (though i have implemented it). I have implemented the _equivalent_ of EMOF in ruby,
+# rather than copy the EMOF spec. For example I haven't implemented the XML based get/set methods.
+
 
 require 'pp'
 
@@ -28,8 +38,8 @@ module RMOF
   NONE= []
   VALID_CONDITIONS= {:multiplicity=>1, :ordered=>1, :default=>1, :default_return_parameter=>1, :return=>1}
   DEFAULT_ATTRIBUTE_CONDITIONS= {:multiplicity=>1..1, :ordered=>true, :default=>NONE} #note this default casues an invalid state
-  DEFAULT_ASSOCIATION_END_CONDITIONS= {:multiplicity=>0..1, :ordered=>true, :default=>NONE}
-  DEFAULT_ASSOCIATION_CONDITIONS= {:multiplicity=>STAR, :ordered=>true}
+  DEFAULT_ASSOCIATION_END_CONDITIONS= {:multiplicity=>1, :ordered=>true, :default=>NONE, :owned_end=>false}
+  DEFAULT_ASSOCIATION_CONDITIONS= {:multiplicity=>1, :ordered=>true}
   DEFAULT_PARAMETER_CONDITIONS= {:multiplicity=>1..1, :ordered=>true}
   NO_RETURN_CONDITIONS= {:multiplicity=>0..0, :ordered=>true, :default=>NONE}
   DEFAULT_RETURN_PARAMETER= [:default_return_parameter,Object, NO_RETURN_CONDITIONS]
@@ -88,6 +98,13 @@ module RMOF
       # define setters, getters and __complete_<name> for attribute
       def attribute name, type, conditions= DEFAULT_ATTRIBUTE_CONDITIONS
         RMOF.complete_conditions conditions, DEFAULT_ATTRIBUTE_CONDITIONS
+        @attributes= {} unless instance_variable_defined? :@attributes
+        @attributes[name]= [name, type, conditions]
+        unless method_defined? :__attributes then 
+          define_method( :__attributes) do  
+            @attributes
+          end 
+        end
         at= "@#{name}".to_sym
         getter= "#{name}".to_sym
         setter= "#{name}=".to_sym
@@ -221,7 +238,8 @@ module RMOF
   # So src gets an attribute  of name trg and vice versa
   # src name may be null, meaning a unidirectional relationship. In such cases
   # reverse associations cannot be tested. In some cases MOF gives a source multiplicity
-  # but no name. In this case use an appropriate assoc-end name based on the src name.
+  # but no name. In this case use an appropriate assoc-end name based on the src name:
+  # "A_" <association-end-name1> "_" <association-end-name2>
   # association_name : symbol
   # *src: property name, type, conditions= {}
   # *trg: property name, type, conditions= {}
@@ -229,7 +247,17 @@ module RMOF
   # name of src may be null (no reverse association)
   # TODO consider syntax check on src, trg etc
   # TODO consider uniqueness on association_name
+  # TODO non-owned associations?
   def association association_name, src, trg, kind= :association, link_conditions=DEFAULT_ASSOCIATION_CONDITIONS
+    # todo: use the name?
+    #if nil= association_name then
+    #  association_name = "A_#{src[PARAM_TYPE].name}_#{trg[PARAM_TYPE].name}"
+    #end
+    # todo get the name from the end names if nil
+    # if nil== src[PARAM_NAME] then 
+    #end
+    if nil== trg[PARAM_NAME] then src[PARAM_NAME]= trg[PARAM_TYPE].name
+    end
     src[PARAM_CONDITIONS]= complete_conditions src[PARAM_CONDITIONS], DEFAULT_ASSOCIATION_END_CONDITIONS
     trg[PARAM_CONDITIONS]= complete_conditions trg[PARAM_CONDITIONS], DEFAULT_ASSOCIATION_END_CONDITIONS
     # All emof assocs have defined multiplicity
@@ -285,9 +313,19 @@ module RMOF
     (0...num).inject([]){ |p,i| p[i]= type.new( *init); p}
   end
 
-  class Metaclass
+  class Element
     RMOF::element self
   end
+
+  class Object < Element
+    def initialize metaclass, container
+      @metaclass= metaclass
+      @container= container
+    end
+    def container; @container; end
+    def getMetaClass; @metaclass; end
+  end
+
 
 end #Typesafe module 
 

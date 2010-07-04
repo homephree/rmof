@@ -20,6 +20,9 @@ module UML
   module Core
     # Ruby-EMOF Typesafe bootstrap
     include RMOF
+    class Metaclass < RMOF::Element
+    end
+    
     def self.association *args
       RMOF.association( *args)
     end
@@ -31,6 +34,7 @@ module UML
     class NamedElement < Metaclass
       generalization Element
     end
+    
     class Type < Metaclass
       generalization NamedElement
     end

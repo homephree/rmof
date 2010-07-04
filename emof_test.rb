@@ -128,4 +128,5 @@ class TestEmof < Test::Unit::TestCase
     assert( animal.isInstance(fred), "fred is animal.")
     assert( !human.isInstance(ananimal), "animal not a human")
   end
+  
 end
