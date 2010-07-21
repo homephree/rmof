@@ -31,7 +31,7 @@ class Parser
     elsif token == 'class'
       name= next_token
       out "class #{name} << Metaclass\n"
-      if next_token != '{' then raise "Expected '}'" end
+      if next_token != '{' then raise "Expected close bracket" end
       read_class
       out "end\n"
     else

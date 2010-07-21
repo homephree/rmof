@@ -1,10 +1,3 @@
 # Object classes for metamodelling
 
-class Instance
-  def initialize( *classifier)
-    @classifier= classifier
-  end
-  def classifier
-    @classifier
-  end
-end
+#delete this file. Object vode in rmof. 
