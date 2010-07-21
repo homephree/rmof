@@ -1,6 +1,5 @@
 require "test/unit"
 
-require "object"
 require "rmof"
 include RMOF
 
