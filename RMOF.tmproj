@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>currentDocument</key>
+	<string>parser.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -32,15 +34,13 @@
 			<key>filename</key>
 			<string>emof_test.rb</string>
 			<key>lastUsed</key>
-			<date>2010-06-24T12:01:04Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-07-07T21:06:43Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>emof.rb</string>
 			<key>lastUsed</key>
-			<date>2010-06-24T12:01:04Z</date>
+			<date>2010-07-07T22:06:58Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -76,7 +76,7 @@
 			<key>filename</key>
 			<string>rmof_test.rb</string>
 			<key>lastUsed</key>
-			<date>2010-06-24T12:01:03Z</date>
+			<date>2010-07-07T21:06:38Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -92,15 +92,93 @@
 		</dict>
 		<dict>
 			<key>filename</key>
+			<string>parser_test.rb</string>
+			<key>lastUsed</key>
+			<date>2010-07-07T22:13:30Z</date>
+		</dict>
+		<dict>
+			<key>filename</key>
+			<string>parser.rb</string>
+			<key>lastUsed</key>
+			<date>2010-07-16T13:25:12Z</date>
+			<key>selected</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>filename</key>
 			<string>rmof.rb</string>
 			<key>lastUsed</key>
-			<date>2010-06-24T12:01:03Z</date>
+			<date>2010-07-07T21:25:53Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
 	<integer>308</integer>
 	<key>metaData</key>
-	<dict/>
+	<dict>
+		<key>emof.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>34</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>5</integer>
+		</dict>
+		<key>parser.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>13</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>parser_test.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>10</integer>
+				<key>line</key>
+				<integer>7</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>rmof.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>250</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>230</integer>
+		</dict>
+	</dict>
+	<key>openDocuments</key>
+	<array>
+		<string>parser.rb</string>
+		<string>parser_test.rb</string>
+		<string>emof.rb</string>
+		<string>rmof.rb</string>
+	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>

@@ -317,15 +317,15 @@ module RMOF
     RMOF::element self
   end
 
-  class Object < Element
-    def initialize metaclass, container
-      @metaclass= metaclass
-      @container= container
-    end
-    def container; @container; end
-    def getMetaClass; @metaclass; end
+  
+class Instance < Element
+  def initialize( *classifier)
+    @classifier= classifier
   end
-
+  def classifier
+    @classifier
+  end
+end
 
 end #Typesafe module 
 
