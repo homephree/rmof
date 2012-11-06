@@ -80,11 +80,12 @@ module RMOF
         @superClasses<< superClass
         instmth= "__inst_#{superClass.name}".gsub(/:/,'_') #TODO - bug if there are classes with underscores in their names matching packages in other classes.
         instvar= "@#{instmth}".to_sym
+        # Add a property to get an instance of the supertype on demand.
+        define_method instmth do 
+          instance_variable_set( instvar, superClass.new) unless instance_variable_defined? instvar
+          instance_variable_get instvar
+        end
         superClass.instance_methods.each do |method|
-          define_method instmth do 
-            instance_variable_set( instvar, superClass.new) unless instance_variable_defined? instvar
-            instance_variable_get instvar
-          end
           #add the method to the class for its generalisations
           unless method_defined? method then
             define_method( method) do |*args|

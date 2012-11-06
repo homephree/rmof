@@ -75,7 +75,7 @@ module UML
     TRUE = Boolean.new(true)
     NULL= String.new("Null")
 
-    class Type
+    class Type < Metaclass
       operation :isInstance, [[:isInstance, Boolean, {:multiplicity => 1, :return => true}]]
     end    
 

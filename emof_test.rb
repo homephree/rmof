@@ -18,7 +18,7 @@ class TestEmof < Test::Unit::TestCase
   end
 
   class MixedData  < Metaclass
-   generalization Class
+   generalization UML::Core::Class
   end
 
   # spot check the basic classes pkg
