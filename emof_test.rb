@@ -17,12 +17,19 @@ class TestEmof < Test::Unit::TestCase
     assert( !prop.isReadOnly[0].native, "prop defaults to empty set")
   end
 
+  class MixedData  < Metaclass
+   generalization Class
+  end
+
   # spot check the basic classes pkg
   def test_classes
     assert( Class.public_method_defined?( :isAbstract) )
     assert( Class.superclass== Type)
-    # check derivation
+    # check derivative methods
+    assert( MixedData.public_method_defined?( :isAbstract), "derivative gets generalization's methods")
+    # check derivation 
     assert( Class.public_method_defined?( :superClass) )
+    # TODO 2012-11-06 Tuesday not sure now what this tests? 
     base1, base2, deriv= Class.new, Class.new, Class.new
     deriv.superClass= [base1, base2]
     assert( deriv.superClass.size==2, "Class can have multiple superclasses.")
@@ -38,7 +45,7 @@ class TestEmof < Test::Unit::TestCase
     prop1.default=[String.new]
     errs= prop1.__complete
     assert( 0==errs.length, errs.inspect);
-        # super
+    # super
     class1, *more_classed= multiples 10, Class
     link nil, nil, [class1], :superClass, more_classed
     assert_equal( more_classed, class1.superClass)

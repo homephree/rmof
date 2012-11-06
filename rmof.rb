@@ -1,5 +1,5 @@
 # RMOF Ruby Meta Object Facility
-# A cut down implementation of CMOF to add typesafety and multiple derivation semantics to ruby.
+# A cut down implementation of EMOF to add typesafety and multiple derivation semantics to ruby.
 # This allows us to build a CMOF implementation in ruby classes, which in turn will allow us to 
 # build a UML implementation and any other metamodel. 
 # Also needed is an instance model.
@@ -78,7 +78,7 @@ module RMOF
       def generalization superClass
         @superClasses= [] unless instance_variable_defined? :@superClass
         @superClasses<< superClass
-        instmth= "__inst_#{superClass.name}".gsub(/:/,'_')
+        instmth= "__inst_#{superClass.name}".gsub(/:/,'_') #TODO - bug if there are classes with underscores in their names matching packages in other classes.
         instvar= "@#{instmth}".to_sym
         superClass.instance_methods.each do |method|
           define_method instmth do 

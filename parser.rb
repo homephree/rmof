@@ -6,7 +6,7 @@ class Parser
   VISIBILITY= {'+' => 'public', '-' => 'private', '#' => 'protected', '~' => 'package'}
   
   def initialize(text)
-    @tokens = text.scan(/\{|\}|\(|\)|\w+[#{VISIBILITY.keys.collect{|v|"\\#{v}"}}]/)
+    @tokens = text.scan(/\{|\}|\(|\)|\w+|[#{VISIBILITY.keys.collect{|v|"\\#{v}"}}]/)
     print "\{|\}|\(|\)|\w+[#{VISIBILITY.keys.collect{|v|"\\#{v}"}}]"
     @out= ""
     print "tokens: #{@tokens.join(", ")}\n"

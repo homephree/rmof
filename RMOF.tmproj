@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>parser.rb</string>
+	<string>emof_test.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -34,13 +34,15 @@
 			<key>filename</key>
 			<string>emof_test.rb</string>
 			<key>lastUsed</key>
-			<date>2010-07-07T21:06:43Z</date>
+			<date>2012-11-06T12:28:10Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>emof.rb</string>
 			<key>lastUsed</key>
-			<date>2010-07-07T22:06:58Z</date>
+			<date>2012-11-06T12:28:10Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -82,33 +84,25 @@
 			<key>filename</key>
 			<string>object_test.rb</string>
 			<key>lastUsed</key>
-			<date>2010-06-24T12:01:03Z</date>
-		</dict>
-		<dict>
-			<key>filename</key>
-			<string>object.rb</string>
-			<key>lastUsed</key>
-			<date>2010-06-24T12:01:03Z</date>
+			<date>2012-11-06T08:26:52Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>parser_test.rb</string>
 			<key>lastUsed</key>
-			<date>2010-07-07T22:13:30Z</date>
+			<date>2012-11-06T12:24:17Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>parser.rb</string>
 			<key>lastUsed</key>
-			<date>2010-07-16T13:25:12Z</date>
-			<key>selected</key>
-			<true/>
+			<date>2010-08-07T20:03:21Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
 			<string>rmof.rb</string>
 			<key>lastUsed</key>
-			<date>2010-07-07T21:25:53Z</date>
+			<date>2012-11-06T12:24:14Z</date>
 		</dict>
 	</array>
 	<key>fileHierarchyDrawerWidth</key>
@@ -120,14 +114,74 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>28</integer>
+				<integer>21</integer>
 				<key>line</key>
-				<integer>34</integer>
+				<integer>85</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>76</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>85</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>88</integer>
+			</dict>
+		</dict>
+		<key>emof_test.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>11</integer>
+				<key>line</key>
+				<integer>75</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>75</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>24</integer>
+				<key>line</key>
+				<integer>75</integer>
+			</dict>
+		</dict>
+		<key>object_test.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>0</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 		<key>parser.rb</key>
 		<dict>
@@ -162,26 +216,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>16</integer>
 				<key>line</key>
-				<integer>250</integer>
+				<integer>63</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>230</integer>
+			<integer>104</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>parser.rb</string>
+		<string>object_test.rb</string>
 		<string>parser_test.rb</string>
 		<string>emof.rb</string>
 		<string>rmof.rb</string>
+		<string>emof_test.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{15, 17}, {1073, 846}}</string>
+	<string>{{10, 4}, {1045, 742}}</string>
 </dict>
 </plist>
