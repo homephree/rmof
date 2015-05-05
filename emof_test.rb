@@ -1,7 +1,7 @@
 require "test/unit"
 
-require 'emof'
-require 'rmof'
+require_relative 'emof'
+require_relative 'rmof'
 
 class TestEmof < Test::Unit::TestCase
   include UML::Core

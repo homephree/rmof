@@ -1,4 +1,4 @@
-require 'rmof'
+require_relative 'rmof'
 require "test/unit"
 
 #cheat a little by treating string and int as element

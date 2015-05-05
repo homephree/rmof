@@ -14,7 +14,7 @@
 # done with a simple override of the setter, although better to include typecheck parameters in 
 # the attribute implementation.
 
-require 'rmof' 
+require_relative 'rmof'
 
 module UML
   module Core

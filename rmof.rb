@@ -16,10 +16,10 @@
 # collection will help)
 # TODO instrument array such that it passes through methods to first instance if only one.
 # Thursday, 10 June 2010 09:19
-# Recent versions add mutliple inheritence via 'generelization' method
+# Recent versions add multiple inheritance via 'generelization' method
 # Null - I need to support null for cases where arrays are partially filled. A single element [1..1] property
 # which is unset is [ nil] not [] 
-# The package needs to meet the requirements of EMOF (not CMOF). Therefore multiple inheritence is not 
+# The package needs to meet the requirements of EMOF (not CMOF). Therefore multiple inheritance is not
 # strictly necessary (though i have implemented it). I have implemented the _equivalent_ of EMOF in ruby,
 # rather than copy the EMOF spec. For example I haven't implemented the XML based get/set methods.
 

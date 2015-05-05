@@ -1,5 +1,5 @@
 require "test/unit"
-require "rmof"
+require_relative "rmof"
 
 # test the error framework
 

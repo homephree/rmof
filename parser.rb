@@ -1,4 +1,4 @@
-require "rmof"
+require_relative "rmof"
 
 
 

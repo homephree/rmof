@@ -1,7 +1,7 @@
 require "test/unit"
 
-require 'rmof'
-require 'rmof_example'
+require_relative 'rmof'
+require_relative 'rmof_example'
 
 class TestAgain < Test::Unit::TestCase
   include TestClasses

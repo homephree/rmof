@@ -1,6 +1,6 @@
 require "test/unit"
 
-require "rmof"
+require_relative "rmof"
 include RMOF
 
 module ObTest

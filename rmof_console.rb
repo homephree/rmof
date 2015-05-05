@@ -1,7 +1,7 @@
 
-require 'rmof'
+require_relative 'rmof'
 
-require 'rmof_example'
+require_relative 'rmof_example'
 
 include TestClasses
 require 'pp'

@@ -1,6 +1,6 @@
 
-require  'rmof'
-require  'rmof_example'
+require_relative  'rmof'
+require_relative  'rmof_example'
 
 
 class TestRMOF < Test::Unit::TestCase

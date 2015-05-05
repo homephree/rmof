@@ -183,8 +183,8 @@ class TestMetaProgramming < Test::Unit::TestCase
     end
     END
     e=E.new
-    assert e.methods.include?( "another_method")
-    assert !e.methods.include?( "some_another_method")
+    assert( e.methods.include?( :another_method), "method should exist")
+    assert( !e.methods.include?( "some_another_method"), "method should not exist")
   end
 end
 
