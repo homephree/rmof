@@ -149,7 +149,7 @@ module RMOF
           end
           begin
             result= method.call(*args)
-          rescue=> ex
+          rescue => ex
             raise RMOFException.new( [adorn_error[{:error=>:exception, :exception=>ex}]])
           end
           validation_errors= RMOF.validate( result, *returnparams[0]) 
@@ -189,7 +189,7 @@ module RMOF
 
   # validate the value against the conditions
   # return a hash of errors mapped as :code=> [arg, conditions, message] 
-  def validate arg, name, type, conditions
+  def validate arg, name, type, conditions={}
     errors= []
     have_errors= {}
     add_error= lambda do |error_type|
@@ -229,7 +229,7 @@ module RMOF
           end
         end
       end
-    rescue=> ex
+    rescue => ex
       (add_error[:exception])[:exception]= ex
     end
     return errors

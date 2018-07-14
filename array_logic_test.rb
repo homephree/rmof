@@ -23,5 +23,8 @@ class MetaTestCase < Test::Unit::TestCase
     assert_equal(1, m[0])
     assert_equal(1, m[1])
     assert_equal(0, m[2])
+
+    #can't work out overriding arrays
+    # m[5]=55
   end
 end

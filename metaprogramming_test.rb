@@ -1,7 +1,7 @@
 # Demonstrate the concepts required to adorn 'Class' such that type-safety
 # Mechanisms can be optionally added to Class instances within Ruby.
 #
-# Reqquired features:
+# Required features:
 # Add class methods to any class (for attribute, operation) making it an EMOF metaclass
 # Create methods with instance scope using those generated class methods
 

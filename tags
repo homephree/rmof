@@ -1,0 +1,177 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A	rmof_example.rb	/^  class A < TypesafeBase$/;"	c	class:TestClasses
+Array	rmof.rb	/^class Array$/;"	c
+AtAt	metaprogramming_test.rb	/^class AtAt$/;"	c
+B	rmof_example.rb	/^  class B < A$/;"	c	class:TestClasses
+Base	derivation_test.rb	/^        class Base$/;"	c	class:TestLibraryFileName.test_case_name
+Beta	metaprogramming_test.rb	/^      class Beta < Meta$/;"	c	class:TestMetaProgramming.test_class_methods
+BlownUp	metaprogramming_test.rb	/^  class BlownUp < Exception; end$/;"	c	class:Class
+Boolean	emof.rb	/^    class Boolean < PrimitiveType$/;"	c	class:UML.Core
+C	metaprogramming_test.rb	/^class C$/;"	c
+CMF	metaprogramming_test.rb	/^  class CMF$/;"	c	class:TestModuleFn
+Card	rmof_example.rb	/^  class Card < GamingItem $/;"	c
+Class	emof.rb	/^    class Class < Type$/;"	c	class:UML.Core
+Class	metaprogramming_test.rb	/^class Class $/;"	c
+Class	object_test.rb	/^  class Class < RMOF::Element$/;"	c	class:ObTest
+Class	parser_test.rb	/^  class Class {$/;"	c
+Class	rmof_example.rb	/^  class Class < TypesafeBase$/;"	c
+Core	emof.rb	/^  module Core$/;"	m	class:UML
+CustomType	rmof_example.rb	/^  class CustomType; end$/;"	c	class:TestClasses
+DataType	emof.rb	/^    class DataType < Metaclass$/;"	c	class:UML.Core
+DerivMetaClass	rmof_example.rb	/^  class DerivMetaClass < TypesafeBase$/;"	c
+E	metaprogramming_test.rb	/^class E$/;"	c
+Element	emof.rb	/^    class Element < Metaclass$/;"	c	class:UML.Core
+Element	emof.rb	/^    class Element$/;"	c	class:UML.Core
+Element	rmof.rb	/^  class Element$/;"	c
+GamingItem	rmof_example.rb	/^  class GamingItem < TypesafeBase$/;"	c
+Instance	rmof.rb	/^class Instance < Element$/;"	c
+Integer	emof.rb	/^    class Integer < PrimitiveType$/;"	c	class:UML.Core
+Left	rmof_example.rb	/^  class Left$/;"	c	class:Class.Typed
+M	metaprogramming_test.rb	/^module M$/;"	m
+MF	metaprogramming_test.rb	/^module MF$/;"	m
+MF2	metaprogramming_test.rb	/^module MF2$/;"	m
+Meta	array_logic_test.rb	/^class Meta$/;"	c
+Meta	metaprogramming_test.rb	/^class Meta$/;"	c
+MetaTestCase	array_logic_test.rb	/^class MetaTestCase < Test::Unit::TestCase$/;"	c
+Metaclass	emof.rb	/^    class Metaclass < RMOF::Element$/;"	c	class:UML.Core
+Metaclass	metaprogramming_test.rb	/^        class Metaclass < Class$/;"	c	class:TestMetaProgramming.test_extending_Class
+MixedData	emof_test.rb	/^  class MixedData  < Metaclass$/;"	c	class:TestEmof
+MultiplicityElement	emof.rb	/^    class MultiplicityElement < PrimitiveType$/;"	c	class:UML.Core
+NamedElement	emof.rb	/^    class NamedElement < Metaclass$/;"	c	class:UML.Core
+ObTest	object_test.rb	/^module ObTest$/;"	m
+Object	emof.rb	/^    class Object < Element$/;"	c	class:UML.Core
+One	metaprogramming_test.rb	/^class One$/;"	c
+OneAttributeMeta	rmof_example.rb	/^  class OneAttributeMeta < TypesafeBase$/;"	c	class:TestClasses
+Operation	emof.rb	/^    class Operation < MultiplicityElement$/;"	c	class:UML.Core
+OpsMetaclass	rmof_example.rb	/^ class OpsMetaclass < TypesafeBase$/;"	c	class:TestClasses
+Pack	rmof_example.rb	/^  class Pack < GamingItem$/;"	c
+Parameter	emof.rb	/^    class Parameter < MultiplicityElement$/;"	c	class:UML.Core
+Parser	parser.rb	/^class Parser$/;"	c
+Part	rmof_example.rb	/^  class Part < GamingItem$/;"	c
+PrimitiveType	emof.rb	/^    class PrimitiveType < Metaclass$/;"	c	class:UML.Core
+Property	emof.rb	/^    class Property < MultiplicityElement$/;"	c	class:UML.Core
+RMOF	rmof.rb	/^module RMOF$/;"	m
+RMOFException	rmof.rb	/^  class RMOFException < Exception$/;"	c	class:RMOF
+Range	rmof.rb	/^class Range$/;"	c
+Right	rmof_example.rb	/^  class Right$/;"	c	class:Class.Typed
+Special	derivation_test.rb	/^        class Special < Base$/;"	c	class:TestLibraryFileName.test_case_name.Base
+String	emof.rb	/^    class String < PrimitiveType$/;"	c	class:UML.Core
+TestAgain	test_association_to_class.rb	/^class TestAgain < Test::Unit::TestCase$/;"	c
+TestClasses	rmof_example.rb	/^module TestClasses$/;"	m
+TestEmof	emof_test.rb	/^class TestEmof < Test::Unit::TestCase$/;"	c
+TestLibraryFileName	derivation_test.rb	/^class TestLibraryFileName < Test::Unit::TestCase$/;"	c
+TestLibraryFileName	rmof_framework_test.rb	/^class TestLibraryFileName < Test::Unit::TestCase$/;"	c
+TestMetaProgramming	metaprogramming_test.rb	/^class TestMetaProgramming < Test::Unit::TestCase$/;"	c
+TestModuleFn	metaprogramming_test.rb	/^class TestModuleFn < Test::Unit::TestCase$/;"	c
+TestObject	object_test.rb	/^class TestObject < Test::Unit::TestCase$/;"	c
+TestParser	parser_test.rb	/^class TestParser < Test::Unit::TestCase$/;"	c	class:Class
+TestRMOF	rmof_test.rb	/^class TestRMOF < Test::Unit::TestCase$/;"	c
+Type	emof.rb	/^    class Type < Metaclass$/;"	c	class:UML.Core
+Type	emof.rb	/^    class Type$/;"	c	class:UML.Core
+Typed	rmof_example.rb	/^  class Typed < TypesafeBase$/;"	c	class:Class
+TypesafeBase	rmof_example.rb	/^  class TypesafeBase < Element$/;"	c	class:TestClasses
+UML	emof.rb	/^module UML$/;"	m
+UnlimitedNatural	emof.rb	/^    class UnlimitedNatural < PrimitiveType$/;"	c	class:UML.Core
+VariousCards	rmof_example.rb	/^  class VariousCards < TypesafeBase$/;"	c	class:TestClasses
+VariousTypes	rmof_example.rb	/^  class VariousTypes < TypesafeBase$/;"	c	class:TestClasses
+Whole	rmof_example.rb	/^  class Whole < GamingItem$/;"	c
+[]	array_logic_test.rb	/^  def [](i); @ar[i]; end$/;"	f	class:Meta
+[]=	array_logic_test.rb	/^  def []=(i,v); @ar[i]=v; end$/;"	f	class:Meta
+__complete	rmof.rb	/^    def __complete$/;"	f	class:RMOF.element
+_test_data_types	emof_test.rb	/^  def _test_data_types$/;"	f	class:TestEmof
+_test_isInstance	emof_test.rb	/^  def _test_isInstance$/;"	f	class:TestEmof
+_test_package	emof_test.rb	/^  def _test_package$/;"	f	class:TestEmof
+_test_types	emof_test.rb	/^  def _test_types$/;"	f	class:TestEmof
+another_method	metaprogramming_test.rb	/^    def another_method$/;"	f	class:TestMetaProgramming.test_normal_eigenclass_tricks
+ar	array_logic_test.rb	/^  def ar; @ar; end$/;"	f	class:Meta
+ar=	array_logic_test.rb	/^  def ar=(v); @ar=v; end$/;"	f	class:Meta
+association	emof.rb	/^    def self.association *args$/;"	F	class:UML.Core
+association	rmof.rb	/^  def association association_name, src, trg, kind= :association, link_conditions=DEFAULT_ASSOCIATION_CONDITIONS$/;"	f
+at	metaprogramming_test.rb	/^  def at$/;"	f	class:AtAt
+attribute	rmof.rb	/^      def attribute name, type, conditions= DEFAULT_ATTRIBUTE_CONDITIONS$/;"	f	class:RMOF.element
+cardinality?	rmof.rb	/^  def cardinality? number$/;"	f	class:Range
+check	emof.rb	/^      def check val$/;"	f	class:UML.Core.String
+check	emof.rb	/^      def check; true; end$/;"	f	class:UML.Core.PrimitiveType
+class_method	metaprogramming_test.rb	/^  def class_method item$/;"	f	class:Class
+class_static	metaprogramming_test.rb	/^    def class_static item$/;"	f
+classifier	rmof.rb	/^  def classifier$/;"	f	class:Instance
+comment	rmof.rb	/^      def comment str$/;"	f	class:RMOF.element
+complete	rmof.rb	/^  def complete metaobject$/;"	f
+complete_conditions	rmof.rb	/^  def complete_conditions conditions, defaults$/;"	f
+dervs	derivation_test.rb	/^          def self.dervs; @dervs; end;$/;"	F	class:TestLibraryFileName.test_case_name.Base
+eigenclass	metaprogramming_test.rb	/^  def eigenclass; @eigenclass; end$/;"	f
+eigenclass	rmof_example.rb	/^    def OpsMetaclass.eigenclass; @eigenclass; end$/;"	F	class:TestClasses
+eigenclass2	metaprogramming_test.rb	/^  def E.eigenclass2; @eigenclass; end$/;"	F	class:E
+element	rmof.rb	/^  def element cls$/;"	f	class:RMOF
+expand_multiplicity_shorthand	rmof.rb	/^  def expand_multiplicity_shorthand multiplicity, default$/;"	f
+f1	metaprogramming_test.rb	/^    def f1$/;"	f	class:TestModuleFn.CMF
+f1	metaprogramming_test.rb	/^  def f1$/;"	f	class:MF
+f2	metaprogramming_test.rb	/^  def f2$/;"	f	class:MF2
+generalization	rmof.rb	/^      def generalization superClass$/;"	f	class:RMOF.element
+inherited	derivation_test.rb	/^          def self.inherited subclass$/;"	F	class:TestLibraryFileName.test_case_name.Base
+initialize	emof.rb	/^      def initialize val=nil$/;"	f	class:UML.Core.PrimitiveType
+initialize	metaprogramming_test.rb	/^  def initialize$/;"	f	class:Class
+initialize	metaprogramming_test.rb	/^  def initialize$/;"	f	class:One
+initialize	parser.rb	/^  def initialize(text)$/;"	f	class:Parser
+initialize	rmof.rb	/^    def initialize validation_errors$/;"	f	class:RMOF.RMOFException
+initialize	rmof.rb	/^  def initialize( *classifier)$/;"	f	class:Instance
+initialize	rmof_example.rb	/^    def initialize $/;"	f	class:Class
+initialize	rmof_example.rb	/^    def initialize $/;"	f	class:Class.Typed
+items	metaprogramming_test.rb	/^  def items; @items; end$/;"	f
+link	rmof.rb	/^  def link association_name, src_end, src, trg_end, trg$/;"	f
+meta	metaprogramming_test.rb	/^      def meta item$/;"	f	class:M.meta
+meta	metaprogramming_test.rb	/^  def M.meta cls$/;"	F	class:M
+multiples	rmof.rb	/^  def multiples num, type, *init$/;"	f
+native	emof.rb	/^      def native; @native; end$/;"	f	class:UML.Core.PrimitiveType
+native=	emof.rb	/^      def native= val; check val; @native= val; end$/;"	f	class:UML.Core.PrimitiveType
+next_token	parser.rb	/^  def next_token$/;"	f	class:Parser
+operation	rmof.rb	/^      def operation name, *parameters, &method$/;"	f	class:RMOF.element
+out	parser.rb	/^  def out text$/;"	f	class:Parser
+read_class	parser.rb	/^  def read_class$/;"	f	class:Parser.uml
+report_rmof_errors	rmof.rb	/^  def report_rmof_errors$/;"	f	class:Array
+setup	rmof_framework_test.rb	/^  def setup$/;"	f	class:TestLibraryFileName
+test_assoc	rmof_test.rb	/^  def test_assoc$/;"	f	class:TestRMOF
+test_atat	metaprogramming_test.rb	/^  def test_atat$/;"	f	class:TestMetaProgramming
+test_attributes	rmof_test.rb	/^  def test_attributes$/;"	f	class:TestRMOF
+test_basic_validations	rmof_test.rb	/^  def test_basic_validations$/;"	f	class:TestRMOF
+test_cardinality	rmof_framework_test.rb	/^  def test_cardinality$/;"	f
+test_cardinality	rmof_test.rb	/^  def test_cardinality$/;"	f	class:TestRMOF
+test_case_name	array_logic_test.rb	/^  def test_case_name$/;"	f	class:MetaTestCase
+test_case_name	derivation_test.rb	/^  def test_case_name$/;"	f	class:TestLibraryFileName
+test_class_methods	metaprogramming_test.rb	/^  def test_class_methods$/;"	f	class:TestMetaProgramming
+test_class_named_attribute	test_association_to_class.rb	/^  def test_class_named_attribute$/;"	f	class:TestAgain
+test_classes	emof_test.rb	/^  def test_classes$/;"	f	class:TestEmof
+test_defaults	emof_test.rb	/^  def test_defaults$/;"	f	class:TestEmof
+test_deriv	rmof_test.rb	/^  def test_deriv$/;"	f	class:TestRMOF
+test_extending_Class	metaprogramming_test.rb	/^  def test_extending_Class$/;"	f	class:TestMetaProgramming
+test_import_statics	metaprogramming_test.rb	/^  def test_import_statics$/;"	f	class:TestMetaProgramming
+test_meta_semantics	emof_test.rb	/^  def test_meta_semantics$/;"	f	class:TestEmof
+test_mf	metaprogramming_test.rb	/^  def test_mf$/;"	f	class:TestModuleFn
+test_mf2	metaprogramming_test.rb	/^  def test_mf2$/;"	f	class:TestModuleFn
+test_mf3	metaprogramming_test.rb	/^  def test_mf3$/;"	f	class:TestModuleFn
+test_normal_eigenclass_tricks	metaprogramming_test.rb	/^  def test_normal_eigenclass_tricks$/;"	f	class:TestMetaProgramming
+test_object	object_test.rb	/^  def test_object$/;"	f	class:TestObject
+test_one	metaprogramming_test.rb	/^  def test_one$/;"	f	class:TestMetaProgramming
+test_op	rmof_test.rb	/^  def test_op omc  $/;"	f	class:TestRMOF
+test_operations	rmof_test.rb	/^  def test_operations$/;"	f	class:TestRMOF
+test_parser	parser_test.rb	/^  def test_parser$/;"	f	class:Class.TestParser
+test_primitives	rmof_test.rb	/^  def test_primitives$/;"	f	class:TestRMOF
+test_print_example	emof_test.rb	/^  def test_print_example$/;"	f	class:TestEmof
+test_types	rmof_test.rb	/^  def test_types$/;"	f	class:TestRMOF
+test_validation_methods	rmof_framework_test.rb	/^  def test_validation_methods$/;"	f
+test_validation_test_rig	rmof_framework_test.rb	/^  def test_validation_test_rig$/;"	f
+test_vc	rmof_test.rb	/^  def test_vc vc$/;"	f	class:TestRMOF
+test_vt	rmof_test.rb	/^  def test_vt vt$/;"	f	class:TestRMOF
+text	parser.rb	/^  def text; @out; end$/;"	f	class:Parser
+to_s	rmof_example.rb	/^    def to_s; "C2#{@i}{type=#{type.join','}}"; end$/;"	f	class:Class
+to_s	rmof_example.rb	/^    def to_s; "T#{@i}"; end$/;"	f	class:Class.Typed
+uml	parser.rb	/^  def uml$/;"	f	class:Parser
+val	metaprogramming_test.rb	/^  def One.val; @val; end$/;"	F	class:One
+val	metaprogramming_test.rb	/^  def val; @val; end$/;"	f	class:One
+validate	rmof.rb	/^  def validate arg, name, type, conditions$/;"	f
+validate_errors	rmof_framework_test.rb	/^  def validate_errors validation_errors$/;"	f	class:TestLibraryFileName
