@@ -61,6 +61,8 @@ module RMOF
     end    
     END
 
+    # Open the class argument so we can add class methods to it.
+    # Here we add all the mof capabilities we want
     class << cls
       define_method(:element?){true}
 

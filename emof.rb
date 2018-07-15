@@ -56,12 +56,14 @@ module UML
     class Boolean < PrimitiveType
       generalization PrimitiveType
     end
+
     class String < PrimitiveType
       generalization PrimitiveType; 
       def check val
         validate val, String, ""
       end
     end
+
     class UnlimitedNatural < PrimitiveType
       generalization PrimitiveType
     end
